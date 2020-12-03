@@ -3,9 +3,9 @@ namespace SpriteKind {
     export const decoration = SpriteKind.create()
 }
 function PrsesentFall () {
+    sprPresent.setFlag(SpriteFlag.AutoDestroy, true)
     sprPresent.vy = 50
     sprPresent.vx = -30
-    sprPresent.setFlag(SpriteFlag.DestroyOnWall, true)
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (activePresents < 3) {
@@ -347,6 +347,13 @@ function intro () {
     pause(1000)
     startGame()
 }
+sprites.onDestroyed(SpriteKind.Present, function (sprite) {
+    activePresents += -1
+    if (sprite.y > 100) {
+        info.changeScoreBy(-1)
+        console.logValue("y", sprite.y)
+    }
+})
 function reinDeer (number: number) {
     SantaClause.setImage([img`
         .................................d..............................................
@@ -437,13 +444,10 @@ function reinDeer (number: number) {
 sprites.onOverlap(SpriteKind.Present, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprite.destroy(effects.confetti, 100)
     music.baDing.play()
+    info.changeScoreBy(5)
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
 	
-})
-scene.onHitWall(SpriteKind.Present, function (sprite, location) {
-    sprite.destroy()
-    activePresents += -1
 })
 let decorations: Sprite = null
 let mySprite3: Sprite = null
