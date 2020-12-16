@@ -1224,6 +1224,7 @@ game.onUpdateInterval(1900, function () {
 })
 game.onUpdateInterval(100, function () {
     console.logValue("buildingList", sprites.allOfKind(SpriteKind.Projectile).length)
+    info.changeScoreBy(gameMultiplier)
 })
 game.onUpdateInterval(2800, function () {
     if (gamePlaying) {
