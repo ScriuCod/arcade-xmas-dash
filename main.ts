@@ -163,9 +163,9 @@ function gameModeChange (mode: string) {
         pause(1000)
         gameModeChange("Intro Closing")
     } else if (mode == "Instructions") {
-    	
+        game.showLongText("Press space to shoot presents. Aim the houses, and try to hit all of them. If you miss, you loose a few points", DialogLayout.Full)
     } else if (mode == "Credits") {
-    	
+        game.showLongText("Made by StefanStudios at <ScriuCod/> on a date near Christmas.", DialogLayout.Full)
     } else if (mode == "Starting") {
         info.setScore(20)
         sprSantaClause = sprites.create(img`
@@ -330,6 +330,7 @@ function gameModeChange (mode: string) {
         sprBackground.setPosition(80, 30)
         gameModeChange("Menu")
     } else if (mode == "Play Game") {
+        sprBackground.destroy()
         gameModeChange("Starting")
         blockMenu.closeMenu()
     }
